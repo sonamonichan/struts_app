@@ -1,0 +1,48 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.example.bookstore.Phase1Baseline
+displayName: Bookstore phase 1 baseline modernization
+description: >
+  First pass for this Struts 2 + Spring 4 + Hibernate 4 WAR project.
+  Upgrades Java and Spring conservatively and refreshes core Maven plugins.
+recipeList:
+  - org.openrewrite.java.migrate.UpgradeToJava17
+  - org.openrewrite.java.spring.framework.UpgradeSpringFramework_5_3
+
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.apache.maven.plugins
+      artifactId: maven-compiler-plugin
+      newVersion: 3.14.x
+
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.apache.maven.plugins
+      artifactId: maven-war-plugin
+      newVersion: 3.4.x
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.example.bookstore.Phase2Struts6
+displayName: Bookstore phase 2 Struts 6 dependency upgrade
+description: >
+  Second pass after Phase1Baseline is green. Bumps Struts dependencies
+  to the supported 6.4 line without doing a full Jakarta migration.
+recipeList:
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.apache.struts
+      artifactId: struts2-core
+      newVersion: 6.4.x
+
+  - org.openrewrite.java.dependencies.UpgradeDependencyVersion:
+      groupId: org.apache.struts
+      artifactId: struts2-spring-plugin
+      newVersion: 6.4.x
+
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.example.bookstore.Phase3Jakarta
+displayName: Bookstore phase 3 Jakarta modernization
+description: >
+  Optional final pass. Use only after Phase1 and Phase2 are stable,
+  because this is the larger javax -> jakarta move.
+recipeList:
+  - org.openrewrite.java.spring.framework.UpgradeSpringFramework_6_0
+  - org.openrewrite.hibernate.MigrateToHibernate60
