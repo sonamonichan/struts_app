@@ -34,7 +34,7 @@
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     <!-- Spring and Struts beans -->
-    <!-- action -->
+    <!-- actioncheck -->
     <bean id="userDetailsAction" class="com.example.bookstore.action.BookAction" />
     <!-- service -->
     <bean id="userDetailsService" class="com.example.bookstore.service.impl.BookServiceImpl" />
