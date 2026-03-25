@@ -1,0 +1,9 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.example.bookstore.Java17Only
+displayName: Upgrade this app from Java 8 to Java 17 only
+description: >
+  Minimal first pass: only move the project from Java 8 to Java 17.
+  Do not manually upgrade Spring, Hibernate, or Struts in this step.
+recipeList:
+  - org.openrewrite.java.migrate.UpgradeToJava17
+EOF
