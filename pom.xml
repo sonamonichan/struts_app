@@ -15,10 +15,16 @@
     </properties>
 
     <dependencies>
-        <!-- Struts 2 dependencies -->
+        <!-- Struts 2 -->
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
+            <version>2.5.26</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-spring-plugin</artifactId>
             <version>2.5.26</version>
         </dependency>
 
@@ -28,17 +34,11 @@
             <artifactId>spring-context</artifactId>
             <version>4.1.4.RELEASE</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>4.1.4.RELEASE</version>
-        </dependency>
-
-        <!-- Struts 2 + Spring -->
-        <dependency>
-            <groupId>org.apache.struts</groupId>
-            <artifactId>struts2-spring-plugin</artifactId>
-            <version>2.5.26</version>
         </dependency>
 
         <!-- Hibernate 4 -->
@@ -48,7 +48,7 @@
             <version>4.3.8.Final</version>
         </dependency>
 
-        <!-- H2 database -->
+        <!-- H2 -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
@@ -96,6 +96,26 @@
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openrewrite.maven</groupId>
+                <artifactId>rewrite-maven-plugin</artifactId>
+                <version>6.34.0</version>
+                <configuration>
+                    <configLocation>${maven.multiModuleProjectDirectory}/rewrite.yml</configLocation>
+                    <activeRecipes>
+                        <recipe>com.example.bookstore.Java17Only</recipe>
+                    </activeRecipes>
+                    <exportDatatables>true</exportDatatables>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.openrewrite.recipe</groupId>
+                        <artifactId>rewrite-migrate-java</artifactId>
+                        <version>3.30.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
